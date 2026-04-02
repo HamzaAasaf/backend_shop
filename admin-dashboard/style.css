@@ -1,0 +1,25 @@
+:root{
+  --bg: #0b1a2b;
+  --surface: #111827;
+  --text: #e5e7eb;
+  --accent: #4f46e5;
+}
+*{box-sizing:border-box}
+html,body,#app{height:100%}
+body{margin:0;font-family: system-ui, -apple-system, Arial, sans-serif;background:#f5f7fb;color:#111}
+#app{display:flex;min-height:100%}
+#sidebar{width:260px;background:var(--surface);color:#fff; padding:20px;}
+#sidebar .brand{margin:0 0 20px 0;font-size:22px}
+.nav-btn{display:block;width:100%;padding:12px 14px;margin:6px 0;background:#1f2937;border:0;border-radius:6px;color:#fff;text-align:center;cursor:pointer}
+.nav-btn.active{background:var(--accent)}
+#main-panel{flex:1; padding:20px}
+#header{display:flex;justify-content:flex-end;margin-bottom:20px}
+.row{display:flex;gap:8px;align-items:center}
+input{padding:10px;border-radius:6px;border:1px solid #ddd}
+button{padding:10px 14px;border-radius:6px;border:0;background:#1f2937;color:#fff;cursor:pointer}
+.section{display:none}
+.section.active{display:block}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+table{width:100%;border-collapse:collapse}
+th,td{border-bottom:1px solid #eee;padding:8px;text-align:right}

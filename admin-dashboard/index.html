@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة الإدارة</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar">
+        <h2 class="brand">Shop Admin</h2>
+        <nav>
+          <button data-section="dashboard" class="nav-btn active">لوحة التحكم</button>
+          <button data-section="inventory" class="nav-btn">إدارة المنتجات</button>
+          <button data-section="orders" class="nav-btn">إدارة الطلبات</button>
+          <button data-section="users" class="nav-btn">المستخدمين</button>
+          <button data-section="coupons" class="nav-btn">الكوبونات</button>
+          <button data-section="analytics" class="nav-btn">الإحصاءات</button>
+          <button data-section="settings" class="nav-btn">الإعدادات</button>
+        </nav>
+      </aside>
+      <main id="main-panel">
+        <header id="header">
+          <div id="login-area" class="row">
+            <input id="login-email" placeholder="البريد الإلكتروني"/>
+            <input id="login-password" type="password" placeholder="كلمة المرور"/>
+            <button id="login-btn">تسجيل الدخول كAdmin</button>
+            <button id="logout-btn" style="display:none;">تسجيل الخروج</button>
+          </div>
+        </header>
+        <section id="dashboard" class="section active"></section>
+        <section id="inventory" class="section"></section>
+        <section id="orders" class="section"></section>
+        <section id="users" class="section"></section>
+        <section id="coupons" class="section"></section>
+        <section id="analytics" class="section"></section>
+        <section id="settings" class="section"></section>
+      </main>
+    </div>
+    <script src="/admin-dashboard/script.js"></script>
+  </body>
+  </html>

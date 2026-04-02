@@ -1,0 +1,366 @@
+openapi: 3.0.3
+info:
+  title: Shop API - العربية
+  version: 1.0.0
+  description: واجهة برمجة تطبيقات لبناء متجر بسيط بالعربية
+servers:
+  - url: http://localhost:5000
+    description: الخادم المحلي
+paths:
+  /api/auth/register:
+    post:
+      summary: تسجيل مستخدم جديد
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '201': {"description": "تم التسجيل بنجاح"}
+  /api/auth/login:
+    post:
+      summary: تسجيل الدخول
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200': {"description": "تم تسجيل الدخول"}
+  /api/products:
+    get:
+      summary: قائمة المنتجات
+      responses:
+        '200': {"description": "بيانات المنتجات"}
+  /api/products/{id}:
+    get:
+      summary: تفاصيل منتج
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200': {"description": "تفاصيل منتج"}
+  /api/cart:
+    get:
+      summary: عرض السلة
+      responses:
+        '200': {"description": "سلة المستخدم"}
+  /api/cart/add:
+    post:
+      summary: إضافة عنصر إلى السلة
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                quantity:
+                  type: integer
+      responses:
+        '200': {"description": "تم التحديث"}
+  /api/cart/checkout:
+    post:
+      summary: إتمام الشراء من السلة
+      responses:
+        '201': {"description": "تم إنشاء الطلب من السلة"}
+  /api/cart/clear:
+    post:
+      summary: مسح السلة
+      responses:
+        '200': {"description": "تم إفراغ السلة"}
+  /api/orders:
+    post:
+      summary: إنشاء طلب
+      responses:
+        '201': {"description": "تم إنشاء الطلب"}
+    get:
+      summary: قائمة الطلبات للمستخدم
+      responses:
+        '200': {"description": "قائمة الطلبات"}
+  /api/orders/{id}:
+    get:
+      summary: تفاصيل الطلب
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200': {"description": "تفاصيل الطلب"}
+  /api/admin/products:
+    get:
+      summary: قائمة المنتجات (مشرف)
+      responses:
+        '200': {"description": "قائمة المنتجات"}
+    post:
+      summary: إنشاء منتج (مشرف)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { "type": "string" }
+                price: { "type": "number" }
+      responses:
+        '201': {"description": "تم إنشاء المنتج"}
+  /api/admin/products/{id}:
+    put:
+      summary: تحديث منتج (مشرف)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title: { "type": "string" }
+      responses:
+        '200': {"description": "تم التحديث"}
+    delete:
+      summary: حذف منتج (مشرف)
+      responses:
+        '200': {"description": "تم الحذف"}
+  /api/admin/orders:
+    get:
+      summary: جميع الطلبات (مشرف)
+      responses:
+        '200': {"description": "جميع الطلبات"}
+  /api/admin/orders/{id}:
+    get:
+      summary: تفاصيل طلب (مشرف)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200': {"description": "تفاصيل الطلب"}
+    patch:
+      summary: تحديث حالة الطلب (مشرف)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200': {"description": "تم التحديث"}
+  /api/admin/users:
+    get:
+      summary: قائمة المستخدمين (مشرف)
+      responses:
+        '200': {"description": "قائمة المستخدمين"}
+  /api/admin/users/{id}/ban:
+    patch:
+      summary: حظر/إلغاء حظر مستخدم
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ban:
+                  type: boolean
+      responses:
+        '200': {"description": "تم التحديث"}
+  /api/admin/analytics:
+    get:
+      summary: تقارير وتحليلات
+      responses:
+        '200': {"description": "نتيجة التحليلات"}
+  /api/admin/settings:
+    get:
+      summary: الإعدادات العامة
+      responses:
+        '200': {"description": "الإعدادات"}
+    put:
+      summary: تحديث الإعدادات العامة
+      responses:
+        '200': {"description": "الإعدادات محدثة"}
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+        category:
+          type: string
+        imageUrls:
+          type: array
+          items:
+            type: string
+        variations:
+          type: array
+          items:
+            type: object
+            properties:
+              color:
+                type: string
+              size:
+                type: string
+              dimensions:
+                type: string
+              weight:
+                type: number
+              stock:
+                type: integer
+              price:
+                type: number
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    Coupon:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        discount:
+          type: number
+        type:
+          type: string
+        minPurchase:
+          type: number
+        expiresAt:
+          type: string
+        active:
+          type: boolean
+    Settings:
+      type: object
+      properties:
+        shippingMethods:
+          type: array
+          items:
+            type: string
+        paymentGateways:
+          type: array
+          items:
+            type: string
+        currencies:
+          type: array
+          items:
+            type: string
+        languages:
+          type: array
+          items:
+            type: string
+  /api/admin/coupons:
+    get:
+      summary: قائمة كوبونات
+      description: استرجاع جميع الكوبونات
+      responses:
+        '200': {"description": "قائمة الكوبونات"}
+    post:
+      summary: إنشاء كوبون
+      description: إنشاء كوبون جديد
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                discount:
+                  type: number
+                type:
+                  type: string
+      responses:
+        '201': {"description": "تم إنشاء الكوبون"}
+  /api/admin/coupons/{id}:
+    get:
+      summary: تفاصيل كوبون
+      description: تفاصيل كوبون محدد
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200': {"description": "تفاصيل الكوبون"}
+    put:
+      summary: تحديث كوبون
+      description: تحديث كوبون محدد
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                discount:
+                  type: number
+                active:
+                  type: boolean
+      responses:
+        '200': {"description": "تم التحديث"}
+    delete:
+      summary: حذف كوبون
+      description: حذف كوبون
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200': {"description": "تم الحذف"}
