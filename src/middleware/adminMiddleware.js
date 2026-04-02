@@ -1,6 +1,6 @@
 function adminMiddleware(req, res, next) {
-  const user = req.user
-  if (!user || user.role !== 'admin') {
+  // Check if user is admin type (from authMiddleware)
+  if (req.userType !== 'admin' || !req.user) {
     return res.status(403).json({ message: 'مسموح للمشرف فقط' })
   }
   next()

@@ -13,10 +13,11 @@ const {
   getOrderById,
   updateOrder
 } = require('../controllers/adminOrderController')
-const { getAllUsers, banUser } = require('../controllers/adminUserController')
+const { getAllUsers, banUser, changePassword } = require('../controllers/adminUserController')
 const couponCtrl = require('../controllers/adminCouponController')
 const analyticsCtrl = require('../controllers/adminAnalyticsController')
 const settingsCtrl = require('../controllers/adminSettingsController')
+const categoryCtrl = require('../controllers/adminCategoryController')
 
 const router = express.Router()
 
@@ -34,6 +35,7 @@ router.patch('/admin/orders/:id', auth, admin, updateOrder)
 // User management
 router.get('/admin/users', auth, admin, getAllUsers)
 router.patch('/admin/users/:id/ban', auth, admin, banUser)
+router.put('/admin/change-password', auth, admin, changePassword)
 
 // Coupons
 router.get('/admin/coupons', auth, admin, couponCtrl.getCoupons)
@@ -47,5 +49,12 @@ router.delete('/admin/coupons/:id', auth, admin, couponCtrl.deleteCoupon)
 router.get('/admin/analytics', auth, admin, analyticsCtrl.getAnalytics)
 router.get('/admin/settings', auth, admin, settingsCtrl.getSettings)
 router.put('/admin/settings', auth, admin, settingsCtrl.updateSettings)
+
+// Category management
+router.get('/admin/categories', auth, admin, categoryCtrl.getAllCategories)
+router.get('/admin/categories/:id', auth, admin, categoryCtrl.getCategoryById)
+router.post('/admin/categories', auth, admin, categoryCtrl.createCategory)
+router.put('/admin/categories/:id', auth, admin, categoryCtrl.updateCategory)
+router.delete('/admin/categories/:id', auth, admin, categoryCtrl.deleteCategory)
 
 module.exports = router

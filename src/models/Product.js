@@ -28,7 +28,7 @@ const productSchema = new mongoose.Schema(
     description: { type: String },
     price: { type: Number, required: true },
     stock: { type: Number, default: 0 },
-    category: { type: String },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
     imageUrls: { type: [String], default: [] },
     variations: { type: [variationSchema], default: [] },
     details: { type: [detailSchema], default: [] },
@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema(
 )
 
 // Expose 'id' as alias of _id in JSON responses
-productSchema.virtual('id').get(function() {
+productSchema.virtual('id').get(function () {
   return this._id.toString()
 })
 productSchema.set('toJSON', { virtuals: true })

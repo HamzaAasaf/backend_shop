@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "seed": "node src/seed.js"
+    "seed": "node src/seed.js",
+    "seed:full": "node src/seed-full.js",
+    "db:reset": "node src/reset-db.js",
+    "db:rebuild": "node src/reset-db.js && node src/seed-full.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

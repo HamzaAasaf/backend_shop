@@ -1,4 +1,5 @@
 const Product = require('../models/Product')
+const Category = require('../models/Category')
 
 async function createProduct(req, res) {
   const {
@@ -14,7 +15,17 @@ async function createProduct(req, res) {
   if (!title || typeof price !== 'number') {
     return res.status(400).json({ message: 'الرجاء تقديم العنوان والسعر' })
   }
+  if (!category) {
+    return res.status(400).json({ message: 'الرجاء اختيار تصنيف للمنتج' })
+  }
+
+  // Verify category exists
   try {
+    const categoryExists = await Category.findById(category)
+    if (!categoryExists) {
+      return res.status(400).json({ message: 'التصنيف المختار غير موجود' })
+    }
+
     const product = new Product({
       title,
       description,
@@ -26,6 +37,9 @@ async function createProduct(req, res) {
       details
     })
     await product.save()
+
+    // Populate category for response
+    await product.populate('category')
     res.status(201).json(product)
   } catch (err) {
     console.error(err)
@@ -36,8 +50,21 @@ async function createProduct(req, res) {
 async function updateProduct(req, res) {
   const { id } = req.params
   const update = req.body
+
+  // If category is being updated, verify it exists
+  if (update.category) {
+    try {
+      const categoryExists = await Category.findById(update.category)
+      if (!categoryExists) {
+        return res.status(400).json({ message: 'التصنيف المختار غير موجود' })
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'معرف التصنيف غير صالح' })
+    }
+  }
+
   try {
-    const product = await Product.findByIdAndUpdate(id, update, { new: true })
+    const product = await Product.findByIdAndUpdate(id, update, { new: true }).populate('category')
     if (!product) return res.status(404).json({ message: 'منتج غير موجود' })
     res.json(product)
   } catch (err) {
@@ -58,10 +85,10 @@ async function deleteProduct(req, res) {
   }
 }
 
-// Get all products (admin view)
+// Get all products (admin view) with populated categories
 async function getAllProducts(req, res) {
   try {
-    const products = await require('../models/Product').find({})
+    const products = await Product.find({}).populate('category', 'name icon')
     res.json(products)
   } catch (err) {
     console.error(err)
