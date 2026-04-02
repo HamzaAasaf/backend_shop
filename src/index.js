@@ -9,8 +9,8 @@ const fs = require('fs')
 const app = express()
 
 app.use(express.json())
-// CORS for admin dashboard frontend (React/Next.js SPA on port 3000)
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+// CORS for all origins (Flutter Web compatible)
+app.use(cors({ origin: '*' }))
 
 // Routers
 const authRoutes = require('./routes/authRoutes')
