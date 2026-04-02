@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: shop-api
+    environment: node
+    buildCommand: npm install
+    startCommand: npm run dev
+    instanceType: standard-1 
+    envVars:
+      - key: MONGODB_URI
+        value: "${MONGODB_URI}"
+      - key: PORT
+        value: "5000"
+      - key: JWT_SECRET
+        value: "${JWT_SECRET}"
+      - key: JWT_EXPIRE
+        value: "${JWT_EXPIRE}"
+    regions: [ oster ]
+  - type: web
+    name: shop-admin-dashboard
+    environment: node
+    buildCommand: bash -lc "cd admin-dashboard-next && npm install && npm run build"
+    startCommand: bash -lc "cd admin-dashboard-next && npm run start"
+    envVars:
+      - key: API_BASE_URL
+        value: "http://shop-api:5000"
+    regions: [ us-east-1 ]
