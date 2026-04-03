@@ -80,25 +80,6 @@ async function login(req, res) {
     if (!match) {
       return res.status(400).json({ message: 'اعتماديات غير صحيحة' })
     }
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
-    return res.json({ token, user: { id: user._id, email: user.email, name: user.name, role: user.role } })
-=======
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
     const token = jwt.sign({ userId: user._id, role: user.role || 'customer' }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
     return res.json({
       token,
@@ -110,22 +91,6 @@ async function login(req, res) {
         type: 'customer'
       }
     })
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
-<<<<<<< C:/Users/Hamza/Desktop/backend_shop/src/controllers/authController.js
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
-=======
->>>>>>> C:/Users/Hamza/.windsurf/worktrees/backend_shop/backend_shop-ab27899e/src/controllers/authController.js
   } catch (err) {
     console.error(err)
     return res.status(500).json({ message: 'خطأ في الخادم' })
